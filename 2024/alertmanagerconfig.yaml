@@ -1,0 +1,27 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: config-example
+  labels:
+    alertmanagerConfig: enabled
+spec:
+  receivers:
+  - name: 'robusta'
+    webhookConfigs:
+      - url: 'http://robusta-runner.robusta-system.svc.cluster.local/api/alerts'
+        sendResolved: true # 
+  - name: 'default-receiver'
+
+  route: # 
+    routes:
+      - receiver: 'robusta'
+        groupBy: [ '...' ]
+        groupWait: 1s
+        groupInterval: 1s
+        matchers:
+          - matchType: =~
+            name: severity
+            value: ".*"
+        repeatInterval: 4h
+        continue: true # 
+    receiver: 'default-receiver'

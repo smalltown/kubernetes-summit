@@ -1,0 +1,5 @@
+alertmanager:
+  alertmanagerSpec:
+    alertmanagerConfigSelector:
+      matchLabels:
+        alertmanagerConfig: enabled

@@ -1,0 +1,14 @@
+route: # 
+  group_by: [ '...' ]
+  group_wait: 1s
+  group_interval: 1s
+  matchers:
+    - severity =~ ".*"
+  repeat_interval: 4h
+  continue: true # 
+  receiver: 'robusta'
+receivers:
+- name: 'robusta'
+  webhook_configs:
+    - url: 'http://robusta-runner.robusta-system.svc.cluster.local/api/alerts'
+      send_resolved: true # 

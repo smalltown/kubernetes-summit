@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: error-nginx-deployment
+  labels:
+    app: error-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: error-nginx
+  template:
+    metadata:
+      labels:
+        app: error-nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.99.99
+        ports:
+        - containerPort: 80
